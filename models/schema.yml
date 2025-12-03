@@ -6,11 +6,46 @@ sources:
     tables:
       - name: sales
         identifier: raw_gz_sales
+        description: sales of Greenweez / we have on row per product_id found in each orders_id
+        columns:
+           - name: date_date
+             description: date of purchase
+           - name: orders_id
+             description: Siparişler için verilen emir kimlikleri
+           - name: products_id
+             description: Ürünlerin benzersiz kimlikleri. pdt_id olarak yazıyordu düzeltildi.
+           - name: revenue
+             description: Elde edilen gelir
+           - name: quantity
+             description: Satılan ürün miktarı
+      
+          
 
       - name: product
         identifier: raw_gz_product
+        description: products of Greenweez
+        columns:
+           - name: products_id
+             description: Ürün için benzersiz kimlik. String olarak kayıtlıydı, float olarak düzeltildi
+             tests:
+               - unique
+               - not_null
+           - name: purchase_price
+             description: Ürün fiyatları. İsim düzeltildi
 
 
       - name: ship
-        identifier: 
-     
+        identifier: raw_gz_ship     
+        description: shipping data for Greenweez orders
+        columns:
+           - name: orders_id
+             description: Emir benzersiz kimliği
+             tests:
+               - unique
+               - not_null
+           - name: shipping_fee
+             description: Müşterinin Ödediği Nakliye ücreti
+           - name: logcost
+             description: Lojistik gideri
+           - name: ship_cost
+             description: Kargo gideri
